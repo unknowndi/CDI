@@ -12,7 +12,9 @@ We demonstrate that existing membership inference attacks are not effective in c
 
 ## Abstract
 
-Diffusion Models (DMs) benefit from large and diverse datasets for their training. Since this data is often scraped from the internet without permission from the data owners, this raises concerns about copyright and intellectual property protections. While (illicit) use of data is easily detected for training samples perfectly re-created by a DM at inference time, it is much harder for data owners to verify if their data was used for training when the outputs from the suspect DM are not close replicas. Conceptually, membership inference attacks (MIAs), which detect if a given data point was used during training, present themselves as a suitable tool to address this challenge. However, we demonstrate that existing MIAs are ineffective in determining the membership of individual images in large DMs. To overcome this limitation, we propose Copyrighted Data Identification (CDI), a framework for data owners to identify whether their dataset was used to train a given DM. CDI relies on dataset inference techniques, i.e., instead of using the membership signal from a single data point, CDI leverages the fact that most data owners, such as providers of stock photography, visual media companies, or even individual artists, own datasets with multiple publicly exposed data points which might all be included in the training of a given DM. By selectively aggregating signals from existing MIAs and using new handcrafted methods to extract features for these datasets, feeding them to a scoring model, and applying rigorous statistical testing, CDI allows data owners with as little as 70 data points to identify with a confidence of more than 99% whether their data was used to train a DM. Thereby, CDI represents a valuable tool for data owners to claim illegitimate use of their copyrighted data.
+Diffusion Models (DMs) benefit from large and diverse datasets for their training. Since this data is often scraped from the Internet without permission from the data owners, this raises concerns about copyright and intellectual property protections. While (illicit) use of data is easily detected for training samples perfectly re-created by a DM at inference time, it is much harder for data owners to verify if their data was used for training when the outputs from the suspect DM are not close replicas. Conceptually, membership inference attacks (MIAs), which detect if a given data point was used during training, present themselves as a suitable tool to address this challenge. However, we demonstrate that existing MIAs are not strong enough to reliably determine the membership of individual images in large, state-of-the-art DMs. To overcome this limitation, we propose CDI, a framework for data owners to identify whether their dataset was used to train a given DM. CDI relies on dataset inference techniques, i.e., instead of using the membership signal from a single data point, CDI leverages the fact that most data owners, such as providers of stock photography, visual media companies, or even individual artists, own datasets with multiple publicly exposed data points which might all be included in the training of a given DM. By selectively aggregating signals from existing MIAs and using new handcrafted methods to extract features for these datasets, feeding them to a scoring model, and applying rigorous statistical testing, CDI allows data owners with as little as 70 data points to identify with a confidence of more than 99% whether their data was used to train a given DM. Thereby, CDI represents a valuable tool for data owners to claim illegitimate use of their copyrighted data.
+
+
 
 ## Third-party resources
 
@@ -110,7 +112,7 @@ Next, we're good to go to run scripts that evaluate CDI from various of perspect
 
 ### MIA
 
-`experiments\mia.py` provides results regarding performance of MIA in our setting for all models. This script produces Tables 1,4,5,6 and Figure 10.
+`experiments\mia.py` provides results regarding performance of MIA in our setting for all models. This script produces Tables 1,8,9,10 and Figure 17.
 
 ### CDI Results
 
@@ -120,14 +122,14 @@ Next, we're good to go to run scripts that evaluate CDI from various of perspect
 
 `experiments\features_ablation.py` computes data necessary for the features ablation study on the performance of CDI. It stores the data necessary for the heatmap in the Figure 3. 
 
-### Contamination Ratio Ablation & False Positives
+### Non-Members Contamination Ratio Ablation & False Positives
 
-`experiments\contamination_ablation.py` performs an experiment on the contamination ratio impact on the effectiveness of CDI. For analysis of false positives in we use data for contamination ratio = 1. (Figures 4 and 6)
+`experiments\contamination_ablation.py` performs an experiment on the non-members contamination ratio impact on the effectiveness of CDI. For analysis of false positives in we use data for contamination ratio = 1. (Figures 4 and 7)
 
 ### Analysis of scoring model via SHAPley plots
 
-`experiments\fclf_shap.py` creat SHAPley plots for explaining the scoring model (Figure 7).
+`experiments\fclf_shap.py` creat SHAPley plots for explaining the scoring model (Figure 8).
 
 ### Comparing CDI and MIAs on Dataset Inference, additional evaluation
 
-First run `experiments\mia_di.py` than `experiments\di_roc.py`to obtain ROC curves for CDI and for MIAs evaluated on DI task (Figures 8 and 9).
+First run `experiments\mia_di.py` than `experiments\di_roc.py`to obtain ROC curves for CDI and for MIAs evaluated on DI task (Figures 9 and 16).
